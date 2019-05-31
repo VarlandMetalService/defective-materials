@@ -1,28 +1,19 @@
 # Dmr
-Short description and motivation.
-
-## Usage
-How to use my plugin.
+  Handles defective material reports, will probably be incorporated into another engine at some point but overall application structure hasn't crystalized just yet. 
 
 ## Installation
-Add this line to your application's Gemfile:
+Add this line to your application's gemfile:
 
 ```ruby
-gem 'dmr'
+gem 'dmr', git: 'ttps://github.com/VarlandMetalService/defective-materials'
 ```
 
-And then execute:
+and install:
 ```bash
-$ bundle
+$ bundle install
 ```
 
-Or install it yourself as:
-```bash
-$ gem install dmr
+add to routes.rb:
+```ruby
+mount Dmr::Engine => '/dmr'
 ```
-
-## Contributing
-Contribution directions go here.
-
-## License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
