@@ -1,0 +1,27 @@
+<style>
+  <!-- this is needed for firefox masking -->
+  .card-text-area{
+    mask: url(#mask);
+    mask-clip: padding;
+    mask-size: cover;
+    mask-repeat: no-repeat;
+  }
+</style>
+<%= stylesheet_link_tag    "dmr/application", media: "all" %>
+<%= javascript_include_tag "dmr/application" %>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="auto" viewBox="0 0 400 300" style='position: absolute; width: 100%; height: 100%;'>
+  <mask id='mask' height='auto' maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+    <path fill='white' d='M 0 0 L 0 0.75 C 0 1, 0 1, 0.5 1 L 1 1 L 1 0.25 C 1 0, 1 0, 0.5 0 Z'>
+  </mask>
+</svg>
+
+<div class='card pb-4'style="min-height: 100vh; height: 100%; font-size: 22px;">
+  <div class='card-header text-center' style='border: none; background-color: #00000000;'>
+    <h1 style='color: white;'>New Defective Material</h1>
+  </div>
+  <%= render 'form' %>
+</div>
+<div id='modal_area'>
+  <%= render 'customer_contact_modal' %>
+  <%= render 'customer_address_modal' %>
+</div>

@@ -1,0 +1,90 @@
+<div class="modal fade" id="address_modal" tabindex="-1" role="dialog" aria-labelledby="addressModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style='max-width: 1000px;'>
+      <div class="modal-header">
+        <h5 class="modal-title" id="addressModalLabel">New Customer Address</h5>
+        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+          <%= fa_icon('times') %>
+        </button>
+      </div>
+      <%= form_tag 'http://localhost:3001/addresses', id: 'address_modal_form' do %>
+        <div class='modal-body'>
+          <%= hidden_field_tag :addressable_id, nil, id: 'address_customer_id' %>
+          <%= hidden_field_tag :addressable_type, 'Customer', id: 'addressable_type' %>
+          <div class='form-group'>
+            <%= label_tag 'Addressee' %>
+            <%= text_field_tag :name, '', { class: 'form-control', id: 'address_name' } %>
+          </div>
+          <div class='form-group'>
+            <%= label_tag 'Line one' %>
+            <%= text_field_tag :line_one, '', { class: 'form-control', id: 'address_line_one' } %>
+          </div>
+          <div class='form-group'>
+            <%= label_tag 'Line two' %>
+            <%= text_field_tag :line_two, '', { class: 'form-control',  placeholder: 'optional', id: 'address_line_two' } %>
+          </div>
+          <div class='form-group'>
+            <%= label_tag 'City' %>
+            <%= text_field_tag :city, '', { class: 'form-control', id: 'address_city' } %>
+          </div>
+          <div class='row mb-3'>
+            <div class='col-4'>
+              State
+              <%= text_field_tag :state, '', { class: 'form-control', id: 'address_state' } %>
+            </div>
+            <div class='col-8'>
+              Zip code
+              <%= text_field_tag :zip, '', { class: 'form-control', id: 'address_zip' } %>
+            </div>
+          </div>
+          <div class='form-group'>
+            <%= label_tag 'Description' %>
+            <%= text_field_tag :description, '', { class: 'form-control', id: 'address_description' } %>
+          </div>
+          <div class='pull-right text-right mb-3'>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= button_tag 'Create Address', class: 'btn bg-gold', data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> thinking..." } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script>
+  $("#address_modal_form").submit(function(event){   
+  event.preventDefault();
+  var formData = new FormData($(this)[0]);
+
+  $.ajax({
+    url: 'http://localhost:3001/addresses',
+    type: 'POST',
+    data: formData,
+    async: false,
+    cache: false,
+    contentType: false,
+    enctype: 'multipart/form-data',
+    processData: false,
+    success: function(data){
+      var partial = `<div class='col-12 container-fluid rounded-container mt-3 text-gold' style='background-color: #212529e6;'> ${ data["data"]["attributes"]["name"] } <br> ${ data["data"]["attributes"]["line_one"] }`
+      if( data["data"]["attributes"]["line_two"] != "" ){
+        partial +=  `<br> ${ data["data"]["attributes"]["line_two"] }`
+      }
+      partial += `<br> ${ data["data"]["attributes"]["city"] }, ${ data["data"]["attributes"]["state"] } ${ data["data"]["attributes"]["zip"] } </div>`
+
+      temp_options = `<option data-partial="${partial}" value="${ data["data"]["id"]}"> ${ data["data"]["attributes"]["name"] }</option>`
+      $('#address_id > optgroup').append(temp_options);
+      $('#address_modal').modal('hide');
+      $('#address_id').val(data["data"]["id"]);
+      $('#address_text_area').empty().append(partial);
+    },
+    error: function(data){
+      clear_validation_errors();
+      render_validation_errors(JSON.parse(data.responseText), 'address_');
+      render_validation_confirmations('address_modal_form', ', #contact_modal_form, #contact_modal_form *');
+    }
+
+  });
+
+  return false;
+});
+</script>

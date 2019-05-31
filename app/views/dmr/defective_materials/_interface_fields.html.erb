@@ -1,0 +1,17 @@
+<li class='interface-fields nested-fields list-group-item mt-1 mb-0 border-bottom-0' data-num="0">
+  <div class='form-row'>
+    <div class='col-5'>
+      <%= select_tag "interfaces[0][medium]", raw("<option value='' selected disabled>choose type</option><option value='0'>email</option><option value='1'>phone</option><option value='2'>fax</option>"), { class: 'form-control' } %>
+    </div>
+    <div class='col-6'>
+      <%= text_field_tag "interfaces[0][value]", '', { placeholder: 'enter value', class: 'form-control' } %>
+    </div>
+    <div class='col-1 d-flex align-items-start'>
+      <%= button_tag fa_icon('times', class: 'text-danger mt-2'), type: :button, onclick: '$(this).closest(".nested-fields").remove()', class: 'btn btn' %>
+      <%=  %>
+    </div>
+    <div class='col-12'>
+      <%= text_field_tag "interfaces[0][description]", '', { placeholder: 'write a description', class: 'mt-2 form-control'} %>
+    </div>
+  </div>
+</li>

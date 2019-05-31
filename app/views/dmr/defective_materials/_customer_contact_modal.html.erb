@@ -1,0 +1,83 @@
+<div class="modal fade" id="contact_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Customer Contact</h5>
+        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+          <%= fa_icon('times') %>
+        </button>
+      </div>
+      <%= form_tag 'http://localhost:3001/contacts', id: 'contact_modal_form' do %>
+      <%= hidden_field_tag :contactable_type, 'Customer' %>
+      <div class="modal-body">
+          <div class='form-group'>
+            <%= select_tag :contactable_id, '', { class: 'form-control', readonly: true, id: 'contact_contactable_id'} %>
+          </div>
+          <div class='form-group'>
+            <%= label_tag 'Name' %>
+            <%= text_field_tag :name, '', { class: 'form-control', placeholder: 'full name', id: 'contact_name' } %>
+          </div>
+          <div class='form-group'>
+            <%= label_tag 'Description' %>
+            <%= text_field_tag :description, '', { class: 'form-control', placeholder: 'title/role/more info', id: 'contact_description' }%>
+          </div>
+          <div class='container-fluid border rounded px-1 py-1 my-2'>
+            <div class='row mx-3'>
+              <div class='col-1'></div>
+              <div class='col text-center'>
+                <i class='mt-2'>contact info</i>
+              </div>
+              <div class='col-1 text-right'>
+                <%= button_tag fa_icon('plus'), type: :button, data: { partial: "#{ render 'interface_fields' }" }, onclick: '$("#interface_insertion_node").append($(this).data("partial").replace(`data-num="0`, `data-num="${ $(".interface-fields").last().data("num") + 1 }`).replace(/interfaces\[0/g, `interfaces[${ $(".interface-fields").last().data("num") + 1 }`))', class: 'btn btn-outline-success' %>
+              </div>
+            </div>
+            <ul id='interface_insertion_node' class='list-group list-group-flush' style='list-style: none;'>
+              <%= render 'interface_fields'%>
+            </ul>
+          </div>
+          <div class='pull-right text-right mb-3'>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= button_tag 'Create Contact', class: 'btn bg-gold', data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> thinking..." } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#contact_modal_form").submit(function(event){   
+  event.preventDefault();
+  var formData = new FormData($(this)[0]);
+  $.ajax({
+    url: 'http://localhost:3001/contacts',
+    type: 'POST',
+    data: formData,
+    async: false,
+    cache: false,
+    contentType: false,
+    enctype: 'multipart/form-data',
+    processData: false,
+    success: function(data){
+      var partial = `<div class='col-12 container-fluid rounded-container bg-wavy' style='color: black;'> ${ data["data"]["attributes"]["name"] } - <small> ${ data["data"]["attributes"]["description"] } </small> <br>`
+
+      $.each(data["included"], function(key, value){
+        partial += `<strong> ${ value["attributes"]["medium"] }:</strong> ${ value["attributes"]["value"] }<small> (${ value["attributes"]["description"] }) </small><br>`
+      })
+      partial << "</div>"
+
+      temp_options = `<option data-partial="${partial}" value="${ data["data"]["id"]}"> ${ data["data"]["attributes"]["name"] }</option>`
+      $('#contact_id > optgroup').append(temp_options);
+      $('#contact_modal').modal('hide');
+      $('#contact_id').val(data["data"]["id"]);
+      $('#contact_text_area').empty().append(partial);
+    },
+    error: function(xhr, status, error){
+      clear_validation_errors();
+      render_validation_errors(JSON.parse(xhr.responseText), 'contact_');
+      render_validation_confirmations('contact_modal_form', ', #address_modal_form, #address_modal_form * ');
+    }
+  });
+  return false;
+});
+</script>

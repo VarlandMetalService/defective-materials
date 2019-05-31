@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dmr</title>
+    <%= csrf_meta_tags %>
+    <%# csp_meta_tag %>
+
+    <%= stylesheet_link_tag    "dmr/application", media: "all" %>
+    <%= javascript_include_tag "dmr/application" %>
+  </head>
+  <body style='font-size: 20px;'>
+    <%= yield %>
+  </body>
+</html>

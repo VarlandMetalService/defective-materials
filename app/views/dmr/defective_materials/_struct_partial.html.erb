@@ -1,0 +1,65 @@
+<% object.each_pair do |key, value| %>
+  <div class='row'>
+  <% case value %>
+  <% when Struct %>
+    <div class='col'>
+      <%= key %>
+    </div>
+    <div class='col' style='color: red;'>
+      <% value.each_pair do |k2, v2| %>
+        <div class='row'>
+          <div class='col'>
+            <%= k2 %>
+          </div>
+          <div class='col'>
+          <% case v2 %>
+          <% when Array %>
+            [
+            <% v2.each do |v3| %>
+              <%= v3.is_a?(Struct) ? ("#{v3.type} - #{v3.id}") : (v3)%>
+            <% end %>
+            ]
+          <% when Struct %>
+            <%= "#{v2.type} - #{v2.id}" %>
+          <% else %>
+            <%= v2 %>
+          <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class='row'>
+  <% when Array %>
+    <div class='col'>
+      <%= key %>
+    </div>
+    <div class='col'>
+      <% value.each do |v2| %>
+        <% case v2 %>
+        <% when Struct %>
+          <div style='color: red;'>
+            <%= "#{v2.type} - #{v2.id}"%>
+          </div>
+          <hr>
+        <% else %>
+            <%= v2 %>
+          <hr>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class='row'>
+  <% else %>
+    <div class='col'>
+      <%= key %>
+    </div>
+    <div class='col'>
+      <%= value %>
+    </div>
+  </div>
+  <div class='row'>
+  <% end %>
+  </div>
+  <hr>
+<% end %>
