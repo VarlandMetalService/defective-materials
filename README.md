@@ -1,4 +1,4 @@
-# Dmr
+# Defective Materials
   Handles defective material reports, will probably be incorporated into another engine at some point but overall application structure hasn't crystalized just yet. 
 
 ## Installation
