@@ -72,7 +72,7 @@
 
 
 // populate user dropdown
-  $.get('http://localhost:3001/users?order=name', function(data, status){
+  $.get('http://192.168.82.230/users?order=name', function(data, status){
     if(status == 'success'){
       temp_options = "<option value='' disabled selected>select an option</option>"
       $.each(data, function(key, value){

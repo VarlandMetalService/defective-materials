@@ -7,7 +7,7 @@
           <%= fa_icon('times') %>
         </button>
       </div>
-      <%= form_tag 'http://localhost:3001/contacts', id: 'contact_modal_form' do %>
+      <%= form_tag 'http://192.168.82.230/contacts', id: 'contact_modal_form' do %>
       <%= hidden_field_tag :contactable_type, 'Customer' %>
       <div class="modal-body">
           <div class='form-group'>
@@ -50,7 +50,7 @@
   event.preventDefault();
   var formData = new FormData($(this)[0]);
   $.ajax({
-    url: 'http://localhost:3001/contacts',
+    url: 'http://192.168.82.230/contacts',
     type: 'POST',
     data: formData,
     async: false,
