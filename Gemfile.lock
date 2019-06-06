@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dmr (0.1.0)
+    dmr (1.0)
       bootstrap
       font-awesome-rails
       jquery-rails
