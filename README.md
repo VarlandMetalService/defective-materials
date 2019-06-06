@@ -5,7 +5,7 @@
 Add this line to your application's gemfile:
 
 ```ruby
-gem 'dmr', git: 'ttps://github.com/VarlandMetalService/defective-materials'
+gem 'dmr', git: 'https://github.com/VarlandMetalService/defective-materials'
 ```
 
 and install:
