@@ -6,7 +6,7 @@ require "dmr/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
   spec.name        = "dmr"
-  spec.version     = 1.0
+  spec.version     = 1.5
   spec.authors     = ["Richard Legacy"]
   spec.email       = ["richard.legacy@varland.com"]
   spec.homepage    = ""
@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
       "public gem pushes."
   end
 
-  spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  spec.files = Dir["{app,config,db,lib, public}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   spec.add_dependency "rails", "~> 5.2.3"
   spec.add_dependency 'jquery-rails'

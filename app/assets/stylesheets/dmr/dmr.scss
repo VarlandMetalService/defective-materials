@@ -66,7 +66,7 @@ input.readonly, textarea.readonly {
   color: $gold;
 }
 .bg-wavy{
-  background-image: url(dust_scratches.png);
+  background-image: asset-url('dust_scratches.png');
 }
 .card-text-area{
   position: relative;
@@ -77,7 +77,7 @@ input.readonly, textarea.readonly {
   margin-bottom: 0px;
   width: 100%;
   padding: 2rem;
-  background-image: url(dust_scratches.png);
+  background-image: asset-url('dust_scratches.png');
   //background: #ADA996;  /* fallback for old browsers */
   //background: -webkit-linear-gradient(to bottom, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); 
   //background: linear-gradient(to bottom, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);
@@ -100,12 +100,12 @@ input.readonly, textarea.readonly {
 }
 .card{
   background-color: #373b3d;
-  background-image: url(cheap_diagonal_fabric.png);
+  background-image: asset-url('cheap_diagonal_fabric.png');
   background-blend-mode: multiply;
 }
 .bg-dark-fabric{
   background-color: #373b3d;
-  background-image: url(cheap_diagonal_fabric.png);
+  background-image: asset-url('cheap_diagonal_fabric.png');
   background-blend-mode: multiply;
 }
 .card-body{
@@ -117,12 +117,12 @@ input.readonly, textarea.readonly {
 }
 .modal{
   background-color: #373b3d;
-  background-image: url(cheap_diagonal_fabric.png);
+  background-image: asset-url('cheap_diagonal_fabric.png');
   background-blend-mode: multiply;
 }
 .modal-content{
   border: 5px solid black;
-  background-image: url(dust_scratches.png);
+  background-image: asset-url('dust_scratches.png');
   }
   @media only screen and (min-width : 481px) {
     .card{

@@ -7,7 +7,7 @@
           <%= fa_icon('times') %>
         </button>
       </div>
-      <%= form_tag 'http://192.168.82.230/addresses', id: 'address_modal_form' do %>
+      <%= form_tag "#{ENV['API_PATH']}/addresses", id: 'address_modal_form' do %>
         <div class='modal-body'>
           <%= hidden_field_tag :addressable_id, nil, id: 'address_customer_id' %>
           <%= hidden_field_tag :addressable_type, 'Customer', id: 'addressable_type' %>
@@ -56,7 +56,7 @@
   var formData = new FormData($(this)[0]);
 
   $.ajax({
-    url: 'http://192.168.82.230/addresses',
+    url: "<%= ENV['API_PATH'] %>/addresses",
     type: 'POST',
     data: formData,
     async: false,

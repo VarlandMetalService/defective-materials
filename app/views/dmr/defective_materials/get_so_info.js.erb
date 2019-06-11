@@ -70,22 +70,6 @@
   <% end -%>
   $('#notified_by').empty().append(temp_options);
 
-
-// populate user dropdown
-  $.get('http://192.168.82.230/users?order=name', function(data, status){
-    if(status == 'success'){
-      temp_options = "<option value='' disabled selected>select an option</option>"
-      $.each(data, function(key, value){
-        if(value.number == <%= @current_user.employee_number %>){
-          temp_options += "<option selected"
-        }else {
-          temp_options += "<option"
-        }
-        temp_options += ` value="${value.id}">${value.name}</option>`;
-      })
-      $('#user_id').empty().append(temp_options);
-    }
-  });
 // render the part/customer info section of the form
   $('#so_info_area').empty().append('<%= j render 'shop_order_info', response: @response %>').show();
 // MAKE IT VISIBLE

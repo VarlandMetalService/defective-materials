@@ -1,14 +1,17 @@
 module Dmr
   class DefectiveMaterialsController < ApplicationController
     require 'net/http'
-    include SessionsHelper
-
+    skip_after_action :verify_authorized
+    
     def new
     end
 
     def get_so_info
       @current_user = current_user
-      uri = URI("http://192.168.82.230/defective_materials/query_so?so_num=#{params[:so_num]}")
+      puts "***********************"
+      puts ENV["API_PATH"]
+      uri = URI("#{ENV["API_PATH"]}/defective_materials/query_so?so_num=#{params[:so_num]}")
+      puts uri
       response = Net::HTTP.get(uri)
       @shop_order = Presenter.hash_to_objects(response).first
       respond_to do |format|
@@ -17,7 +20,7 @@ module Dmr
     end
 
     def show
-      uri = URI("http://192.168.82.230/defective_materials/#{params[:id]}")
+      uri = URI("#{ENV['API_PATH']}/defective_materials/#{params[:id]}")
       @response = Net::HTTP.get(uri)
       @dmr = Presenter.hash_to_objects(@response)
       respond_to do |format|

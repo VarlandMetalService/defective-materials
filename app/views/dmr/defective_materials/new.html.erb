@@ -7,8 +7,8 @@
     mask-repeat: no-repeat;
   }
 </style>
-<%= stylesheet_link_tag    "dmr/application", media: "all" %>
-<%= javascript_include_tag "dmr/application" %>
+<%= stylesheet_link_tag    "dmr/dmr", media: "all" %>
+<%= javascript_include_tag "dmr/dmr" %>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="auto" viewBox="0 0 400 300" style='position: absolute; width: 100%; height: 100%;'>
   <mask id='mask' height='auto' maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
     <path fill='white' d='M 0 0 L 0 0.75 C 0 1, 0 1, 0.5 1 L 1 1 L 1 0.25 C 1 0, 1 0, 0.5 0 Z'>
@@ -25,3 +25,9 @@
   <%= render 'customer_contact_modal' %>
   <%= render 'customer_address_modal' %>
 </div>
+
+<script>
+  document.body.addEventListener('ajax:success', function(event) {
+    window.location.replace("<%= main_app.root_path %>");
+  })
+</script>
