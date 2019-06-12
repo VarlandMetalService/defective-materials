@@ -2,20 +2,11 @@ module Dmr
   class Engine < ::Rails::Engine
     isolate_namespace Dmr
 
-    initializer :assets do |config|
-      Rails
+    Rails.application.config.assets.paths << "app/assets/*"
+    initializer "dmr.assets.precompile" do |app|
+      app.config.assets.precompile += %w( dmr/* dmr.scss dmr.js )
     end
-
-    initializer "dmr.precompile" do |app|
-      app.config.assets.paths << root.join("app", "assets", "images", "dmr")
-      app.config.assets.precompile += %w( dmr/* )
-    end
-
-    initializer "my_engine.precompile" do |app|
-      app.config.assets.paths << Rails.root.join('/engines/dmr/app/assets/*')
-      app.config.assets.precompile << "dmr/*"
-    end
-
+    Rails.application.config.assets.precompile += ['*.js', '*.css', '**/*.js', '**/*.css', '*.jpg', '*.png', '*.ico', '*.gif', '*.woff2', '*.eot', '*.woff', '*.ttf', '*.svg'] 
 
   end
 end
