@@ -1,3 +1,4 @@
+//= require_tree .
 function get_so_info(url, so_num){
   $('.dmr_hidden_fields').fadeOut('fast');
   $('.fa-refresh').addClass('fa-spin');
