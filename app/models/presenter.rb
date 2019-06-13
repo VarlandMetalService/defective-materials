@@ -68,12 +68,14 @@ class Presenter < ApplicationRecord
     hash.each do |k, v|
       case k
       when :attributes
-        attr_list.merge! hash[k].except(:files)
+        attr_list.merge! hash[k].except(:files, :params)
         if hash[k][:files]
           attr_list['files'] = []
           hash[k][:files].each do |file|
             attr_list['files'] << self.create_object(file[:data])
           end
+        elsif hash[k][:params]
+          attr_list.merge! hash[k][:params]
         end
       when :relationships
         hash[k].each do |k2, v2|

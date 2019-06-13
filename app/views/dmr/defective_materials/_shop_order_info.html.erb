@@ -1,19 +1,20 @@
-<div class='container-fluid rounded-container pull-left mt-0 mb-0 text-black bg-red' title='<%= @shop_order.part.description %>'>
+<div class='container-fluid rounded-container pull-left mt-0 mb-0 text-black bg-red' title='<%= @shop_order.part.description.gsub('<br/>', '&#x0a').html_safe %>'>
   <div class='form-row'>
-    <div class='col-auto'>
-      <a data-process-code='<%= @shop_order.part.process_code %>' class='font-weight-bold' style='disabled: true;'>
+    <div class='col-auto text-center'>
+      <strong> [<%= @shop_order.customer.code %>] </strong> <br>
+      <a data-process-code='<%= @shop_order.part.process_code.html_safe %>' class='font-weight-bold' style='disabled: true;'>
         <span class='badge badge-warning badge-border btn-block' style='font-size: 35px; border: 5px solid #343a40;'>
-          <%= @shop_order.part.process_code %>
+          <%= @shop_order.part.process_code.html_safe %>
         </span>
       </a>
     </div>
-    <div class='col-auto'>
-      <strong> [<%= @shop_order.customer.code %>] </strong> <%= @shop_order.customer.name %> 
+    <div class='col'>
+      <%= @shop_order.customer.name.html_safe %> 
       <br>
-      <%= @shop_order.part.name %>
-      <small class='text-muted d-inline text-gold'>
-        <%= @shop_order.part.code %> 
-        <%= @shop_order.part.code_sub unless @shop_order.part.code_sub.blank? %>
+      <%= @shop_order.part.name.html_safe %>
+      <small class='d-inline text-white'>
+        <%= @shop_order.part.code.html_safe %> 
+        <%= @shop_order.part.code_sub.html_safe unless @shop_order.part.code_sub.blank? %>
       </small>
     </div>
   </div>

@@ -1,4 +1,4 @@
-<%= form_tag "#{ENV['API_PATH']}/defective_materials", authenticity_token: false, remote: true, id: 'dmr_form' do %>
+<%= form_for :defective_material, { url: "#{ENV['API_PATH']}/defective_materials", remote: true, html: { id: 'dmr_form' } } do |f| %>
 
 <div class='row'>
   <div class='col' style='margin: 0 auto; min-width: 50%; max-width: 1200px;'>
@@ -22,30 +22,30 @@
         <div class='dmr_hidden_fields' style='<%= 'display: none;' %>'>
           <div class='form-row mt-0 mb-0 pb-0'>
             <div class='col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3'>
-              <%= hidden_field_tag :shop_order_id %>
+              <%= f.hidden_field :shop_order_id %>
               <div class='form-group'>
-                <%= label :number, 'DMR #' %>
-                <%= text_field_tag :number, nil, { readonly: true, class: 'form-control' } %>
+                <%= f.label :number, 'DMR #' %>
+                <%= f.text_field :number, { readonly: true, class: 'form-control' } %>
               </div>
               <div class='form-group'>
-                <%= label :purchase_order_numbers, 'PO #(s)'%>
-                <%= text_field_tag :purchase_order_numbers, nil, { readonly: true, rows: 1, class: 'form-control' } %>
-              </div>
-            </div>
-            <div class='col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3'>
-              <div class='form-group'>
-                <%= label :weight, 'Weight' %>
-                <%= number_field_tag :weight, {}, { placeholder: 'in pounds', class: 'form-control' } %>
-              </div>
-              <div class='form-group'>
-                <%= label :pieces, 'Pieces' %>
-                <%= number_field_tag :pieces, {}, { class: 'form-control' } %>
+                <%= f.label :purchase_order_numbers, 'PO #(s)'%>
+                <%= f.text_field :purchase_order_numbers, { readonly: true, rows: 1, class: 'form-control' } %>
               </div>
             </div>
             <div class='col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3'>
               <div class='form-group'>
-                <%= label :created_at, 'Date', { class: 'form-label required' } %>
-                <%= date_field_tag :created_at, '', { class: 'form-control' } %>
+                <%= f.label :weight, 'Weight' %>
+                <%= f.number_field :weight, { placeholder: 'in pounds', class: 'form-control' } %>
+              </div>
+              <div class='form-group'>
+                <%= f.label :pieces, 'Pieces' %>
+                <%= f.number_field :pieces, { class: 'form-control' } %>
+              </div>
+            </div>
+            <div class='col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3'>
+              <div class='form-group'>
+                <%= f.label :created_at, 'Date', { class: 'form-label required' } %>
+                <%= f.date_field :created_at, { class: 'form-control' } %>
               </div>
               <div class='form-group'>
                 <%= label :employee_num, 'Sent by' %>
@@ -54,12 +54,12 @@
             </div>
             <div class='col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3'>
               <div class='form-group'>
-                <%= label :found_when, 'Found When' %>
-                <%= select_tag :found_when, {}, { class:'form-control' } %>
+                <%= f.label :found_when, 'Found When' %>
+                <%= f.select :found_when, {}, {}, { class:'form-control' } %>
               </div>
               <div class='form-group'>
-                <%= label :part_disposition, 'Part disposition' %>
-                <%= select_tag :part_disposition, {}, { class:'form-control' } %>
+                <%= f.label :part_disposition, 'Part disposition' %>
+                <%= f.select :part_disposition, {}, {}, { class:'form-control' } %>
               </div>
             </div>
           </div>
@@ -78,9 +78,9 @@
                   </h4>
                 </div>
                 <div class='form-group'>
-                  <%= label :contact_id, 'Contact' %>
+                  <%= f.label :contact_id, 'Contact' %>
                   <div class='input-group'>
-                    <%= select_tag :contact_id, {}, { id: 'contact_id', class: 'form-control', onchange: "$('#contact_text_area').empty().append($(this.options[this.selectedIndex]).data('partial'));" } %>
+                    <%= f.select :contact_id, {}, {}, { class: 'form-control', onchange: "$('#contact_text_area').empty().append($(this.options[this.selectedIndex]).data('partial'));" } %>
                     <span class='input-group-append'>
                       <button type="button" class="btn btn-outline-danger rounded-right" data-toggle="modal" data-target="#contact_modal">
                         <%= fa_icon('plus') %>
@@ -90,28 +90,28 @@
                 </div>
                 <div id='contact_text_area'></div>
                 <div class='form-group'>
-                  <%= label :notified_by, 'Notified via' %>
-                  <%= select_tag :notified_by, {}, {id: 'notified_by', class: 'form-control'} %>
+                  <%= f.label :notified_by, 'Notified via' %>
+                  <%= f.select :notified_by, {}, {}, { class: 'form-control'} %>
                 </div>
                 <div class='form-group'>
-                  <%= label :customer_instruction, 'Customer instructions' %>
-                  <%= text_area_tag :customer_instruction, nil, { class: 'form-control' } %>
+                  <%= f.label :customer_instruction, 'Customer instructions' %>
+                  <%= f.text_area :customer_instruction, { class: 'form-control' } %>
                 </div>
               </div>
             </div>
             <div class='col-12 col-md-6 col-lg-6 col-xl-6'>
               <div class='form-group'>
-                <%= label :defect_description, 'Defect description' %>
-                <%= text_area_tag :defect_description, nil, { class: 'form-control' } %>
+                <%= f.label :defect_description, 'Defect description' %>
+                <%= f.text_area :defect_description, { class: 'form-control' } %>
               </div>
               <div class='form-group'>
-                <%= label :corrective_action, 'Corrective action' %>
-                <%= text_area_tag :corrective_action, nil, { class: 'form-control' } %>
+                <%= f.label :corrective_action, 'Corrective action' %>
+                <%= f.text_area :corrective_action, { class: 'form-control' } %>
               </div>
               <div class='form-group'>
-                <%= label :address_id, 'Send to' %>
+                <%= f.label :address_id, 'Send to' %>
                 <div class='input-group'>
-                  <%= select_tag :address_id, {}, { id: 'address_id', class: 'form-control', onchange: "$('#address_text_area').empty().append($(this.options[this.selectedIndex]).data('partial'));" } %>
+                  <%= f.select :address_id, {}, {}, { class: 'form-control', onchange: "$('#address_text_area').empty().append($(this.options[this.selectedIndex]).data('partial'));" } %>
                   <span class='input-group-append'>
                     <button type="button" class="btn btn-outline-danger rounded-right" data-toggle="modal" data-target="#address_modal">
                       <%= fa_icon('plus') %>
@@ -122,10 +122,10 @@
               <div class='w-100'></div>
               <div id='address_text_area'></div>
               <div id='dmr_sent_radio_buttons' class='form-control mb-3 mt-3'>
-                <%= label :samples_sent, 'Samples sent?' %>
-                <%= radio_button_tag :samples_sent, '1' %>
+                <%= f.label :samples_sent, 'Samples sent?' %>
+                <%= f.radio_button :samples_sent, '1' %>
                 yes
-                <%= radio_button_tag :samples_sent, '0', true %>
+                <%= f.radio_button :samples_sent, '0', checked: true %>
                 no
               </div>
             </div>
@@ -135,11 +135,11 @@
       <div class='card-body mt-3 mb-3 bg-gold'>
         <div class='card-text-area'>
           <div class='col-12 rounded-container text-gold mb-0 mt-0' style='background-color: #212529e6;'>
-            <%= label :files, 'Files' %>
-            <%= file_field_tag 'files[]',{ multiple: true, class: 'filepond' } %>
+            <%= f.label :files, 'Files' %>
+            <%= f.file_field 'files[]',{ multiple: true, class: 'filepond' } %>
           </div>
           <div class='w-100 text-center'>
-          <%= button_tag 'Create Defective Material Report', class: 'mt-3 btn bg-gold', onclick: "Rails.fire(form, 'submit');", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> thinking..." } %>
+          <%= f.button 'Create Defective Material Report', class: 'mt-3 btn bg-gold', onclick: "Rails.fire(form, 'submit');", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> thinking..." } %>
         </div>
       </div>
     </div>
@@ -166,7 +166,7 @@
   // remove all is-invalid and invalid-feedback
     clear_validation_errors();
   // add all current errors
-    render_validation_errors(event.detail[0], '');
+    render_validation_errors(event.detail[0], 'defective_material_');
   // mark non-error fields valid
     $.each($(`#dmr_form`).find(`.form-control:not(.is-invalid, .modal-body, .modal-body *)`), function(index, input){
       $(input).addClass('is-valid')

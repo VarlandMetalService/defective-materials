@@ -67,9 +67,9 @@
       partial << "</div>"
 
       temp_options = `<option data-partial="${partial}" value="${ data["data"]["id"]}"> ${ data["data"]["attributes"]["name"] }</option>`
-      $('#contact_id > optgroup').append(temp_options);
+      $('#defective_material_contact_id > optgroup').append(temp_options);
       $('#contact_modal').modal('hide');
-      $('#contact_id').val(data["data"]["id"]);
+      $('#defective_material_contact_id').val(data["data"]["id"]);
       $('#contact_text_area').empty().append(partial);
     },
     error: function(xhr, status, error){

@@ -72,9 +72,9 @@
       partial += `<br> ${ data["data"]["attributes"]["city"] }, ${ data["data"]["attributes"]["state"] } ${ data["data"]["attributes"]["zip"] } </div>`
 
       temp_options = `<option data-partial="${partial}" value="${ data["data"]["id"]}"> ${ data["data"]["attributes"]["name"] }</option>`
-      $('#address_id > optgroup').append(temp_options);
+      $('#defective_material_address_id > optgroup').append(temp_options);
       $('#address_modal').modal('hide');
-      $('#address_id').val(data["data"]["id"]);
+      $('#defective_material_address_id').val(data["data"]["id"]);
       $('#address_text_area').empty().append(partial);
     },
     error: function(data){

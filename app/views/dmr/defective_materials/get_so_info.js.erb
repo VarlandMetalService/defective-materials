@@ -6,12 +6,12 @@
   $('#address_text_area').empty()
 
 // fill in some fields
-  $('#number').val('<%= @shop_order.dmr_num %>')
-  $('#weight').val('<%= @shop_order.weight unless !@shop_order.respond_to? :weight %>')
-  $('#pieces').val('<%= @shop_order.pieces unless !@shop_order.respond_to? :pieces %>')
-  $('#shop_order_id').val('<%= @shop_order.id %>')
-  $('#created_at').val('<%= Date.today %>')
-  $('#purchase_order_numbers').val('<%= @shop_order.po_nums %>')
+  $('#defective_material_number').val('<%= @shop_order.dmr_num %>')
+  $('#defective_material_weight').val('<%= @shop_order.weight unless !@shop_order.respond_to? :weight %>')
+  $('#defective_material_pieces').val('<%= @shop_order.pieces unless !@shop_order.respond_to? :pieces %>')
+  $('#defective_material_shop_order_id').val('<%= @shop_order.id %>')
+  $('#defective_material_created_at').val('<%= Date.today %>')
+  $('#defective_material_purchase_order_numbers').val('<%= @shop_order.po_nums %>')
 
 // render new contact & address modals
   $('#contact_contactable_id').empty().append('<option value="<%= @shop_order.customer.id %>"><%= @shop_order.customer.code %></option>')
@@ -35,20 +35,20 @@
     <% end %>
   <% end %>
   temp_options = temp_options.concat('</optgroup>')
-  $('#contact_id').empty().append(temp_options);
+  $('#defective_material_contact_id').empty().append(temp_options);
 
 // populate customer address dropdown
   var temp_options = '<option value="" disabled selected>select an option or create a new one</option><optgroup label="<%= @shop_order.customer.code %>">'
   <% unless !@shop_order.customer.respond_to? :addresses %>
     <% @shop_order.customer.addresses.each do |address| %>
 
-    partial = "<div class='col-12 container-fluid rounded-container mt-3 text-gold' style='background-color: #212529e6;'> <%= address.name %> <br> <%= address.line_one %><br> <% unless address.line_two.blank? -%><%= address.line_two %><br> <% end -%> <%= address.city %>, <%= address.state %> <%= address.zip %> </div>"
+    partial = "<div class='col-12 container-fluid rounded-container mt-3 text-gold' style='background-color: #212529e6;'> <%= address.name.html_safe %> <br> <%= address.line_one %><br> <% unless address.line_two.blank? -%><%= address.line_two %><br> <% end -%> <%= address.city %>, <%= address.state %> <%= address.zip %> </div>"
 
       temp_options = temp_options.concat(`<option data-partial="${partial}" value="<%= address.id %>"><%= address.description %></option>`)
     <% end %>
   <% end %>
   temp_options = temp_options.concat('</optgroup>')
-  $('#address_id').empty().append(temp_options);
+  $('#defective_material_address_id').empty().append(temp_options);
   $('#address_customer_id').val('<%= @shop_order.customer.id %>')
 
 // populate enum dropdowns
@@ -56,19 +56,19 @@
   <% @shop_order.part_disposition_options.each do |opt| -%>
     temp_options = temp_options.concat('<option value="<%= opt %>"><%= opt %></option>')
   <% end -%>
-  $('#part_disposition').empty().append(temp_options);
+  $('#defective_material_part_disposition').empty().append(temp_options);
 
   temp_options = "<option value='' disabled selected>select an option</option>"
   <% @shop_order.found_when_options.each do |opt| -%>
     temp_options = temp_options.concat('<option value="<%= opt %>"><%= opt %></option>')
   <% end -%>
-  $('#found_when').empty().append(temp_options);
+  $('#defective_material_found_when').empty().append(temp_options);
 
   temp_options = "<option value='' disabled selected>select an option</option>"
   <% @shop_order.notified_by_options.each do |opt| -%>
     temp_options = temp_options.concat('<option value="<%= opt %>"><%= opt %></option>')
   <% end -%>
-  $('#notified_by').empty().append(temp_options);
+  $('#defective_material_notified_by').empty().append(temp_options);
 
 // render the part/customer info section of the form
   $('#so_info_area').empty().append('<%= j render 'shop_order_info', response: @response %>').show();

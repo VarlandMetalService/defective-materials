@@ -8,9 +8,7 @@ module Dmr
 
     def get_so_info
       @current_user = current_user
-      puts "***********************"
-      puts ENV["API_PATH"]
-      uri = URI("#{ENV["API_PATH"]}/defective_materials/query_so?so_num=#{params[:so_num]}")
+      uri = URI("#{ENV["API_PATH"]}/defective_materials/new?so_num=#{params[:so_num]}")
       puts uri
       response = Net::HTTP.get(uri)
       @shop_order = Presenter.hash_to_objects(response).first
