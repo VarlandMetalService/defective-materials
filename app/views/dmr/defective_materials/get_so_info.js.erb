@@ -49,7 +49,7 @@
   <% end %>
   temp_options = temp_options.concat('</optgroup>')
   $('#defective_material_address_id').empty().append(temp_options);
-  $('#address_customer_id').val('<%= @shop_order.customer.id %>')
+  $('#address_addressable_id').val('<%= @shop_order.customer.id %>')
 
 // populate enum dropdowns
   temp_options = "<option value='' disabled selected>select an option</option>"

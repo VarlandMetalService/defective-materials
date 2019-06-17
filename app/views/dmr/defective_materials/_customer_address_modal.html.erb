@@ -7,39 +7,39 @@
           <%= fa_icon('times') %>
         </button>
       </div>
-      <%= form_tag "#{ENV['API_PATH']}/addresses", id: 'address_modal_form' do %>
+      <%= form_for :address, { remote: true, html: { id: 'address_modal_form' } } do |f| %>
         <div class='modal-body'>
-          <%= hidden_field_tag :addressable_id, nil, id: 'address_customer_id' %>
-          <%= hidden_field_tag :addressable_type, 'Customer', id: 'addressable_type' %>
+          <%= f.hidden_field :addressable_id, value: nil, id: 'address_addressable_id' %>
+          <%= f.hidden_field :addressable_type, value: 'Customer' %>
           <div class='form-group'>
-            <%= label_tag 'Addressee' %>
-            <%= text_field_tag :name, '', { class: 'form-control', id: 'address_name' } %>
+            <%= f.label 'Addressee' %>
+            <%= f.text_field :name, { class: 'form-control' } %>
           </div>
           <div class='form-group'>
-            <%= label_tag 'Line one' %>
-            <%= text_field_tag :line_one, '', { class: 'form-control', id: 'address_line_one' } %>
+            <%= f.label 'Line one' %>
+            <%= f.text_field :line_one, { class: 'form-control', id: 'address_line_one' } %>
           </div>
           <div class='form-group'>
-            <%= label_tag 'Line two' %>
-            <%= text_field_tag :line_two, '', { class: 'form-control',  placeholder: 'optional', id: 'address_line_two' } %>
+            <%= f.label 'Line two' %>
+            <%= f.text_field :line_two, { class: 'form-control',  placeholder: 'optional', id: 'address_line_two' } %>
           </div>
           <div class='form-group'>
-            <%= label_tag 'City' %>
-            <%= text_field_tag :city, '', { class: 'form-control', id: 'address_city' } %>
+            <%= f.label 'City' %>
+            <%= f.text_field :city, { class: 'form-control', id: 'address_city' } %>
           </div>
           <div class='row mb-3'>
             <div class='col-4'>
               State
-              <%= text_field_tag :state, '', { class: 'form-control', id: 'address_state' } %>
+              <%= f.text_field :state, { class: 'form-control', id: 'address_state' } %>
             </div>
             <div class='col-8'>
               Zip code
-              <%= text_field_tag :zip, '', { class: 'form-control', id: 'address_zip' } %>
+              <%= f.text_field :zip, { class: 'form-control', id: 'address_zip' } %>
             </div>
           </div>
           <div class='form-group'>
-            <%= label_tag 'Description' %>
-            <%= text_field_tag :description, '', { class: 'form-control', id: 'address_description' } %>
+            <%= f.label 'Description' %>
+            <%= f.text_field :description, { class: 'form-control', id: 'address_description' } %>
           </div>
           <div class='pull-right text-right mb-3'>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -7,19 +7,19 @@
           <%= fa_icon('times') %>
         </button>
       </div>
-      <%= form_tag "#{ENV['API_PATH']}/contacts", id: 'contact_modal_form' do %>
-      <%= hidden_field_tag :contactable_type, 'Customer' %>
+      <%= form_for :contact, { remote: true, html: { id: 'contact_modal_form' } } do |f| %>
+      <%= f.hidden_field :contactable_type, value: 'Customer' %>
       <div class="modal-body">
           <div class='form-group'>
-            <%= select_tag :contactable_id, '', { class: 'form-control', readonly: true, id: 'contact_contactable_id'} %>
+            <%= f.select :contactable_id, {}, {}, { class: 'form-control', readonly: true, id: 'contact_contactable_id'} %>
           </div>
           <div class='form-group'>
-            <%= label_tag 'Name' %>
-            <%= text_field_tag :name, '', { class: 'form-control', placeholder: 'full name', id: 'contact_name' } %>
+            <%= f.label 'Name' %>
+            <%= f.text_field :name, { class: 'form-control', placeholder: 'full name', id: 'contact_name' } %>
           </div>
           <div class='form-group'>
-            <%= label_tag 'Description' %>
-            <%= text_field_tag :description, '', { class: 'form-control', placeholder: 'title/role/more info', id: 'contact_description' }%>
+            <%= f.label 'Description' %>
+            <%= f.text_field :description, { class: 'form-control', placeholder: 'title/role/more info', id: 'contact_description' }%>
           </div>
           <div class='container-fluid border rounded px-1 py-1 my-2'>
             <div class='row mx-3'>
@@ -28,16 +28,16 @@
                 <i class='mt-2'>contact info</i>
               </div>
               <div class='col-1 text-right'>
-                <%= button_tag fa_icon('plus'), type: :button, data: { partial: "#{ render 'interface_fields' }" }, onclick: '$("#interface_insertion_node").append($(this).data("partial").replace(`data-num="0`, `data-num="${ $(".interface-fields").last().data("num") + 1 }`).replace(/interfaces\[0/g, `interfaces[${ $(".interface-fields").last().data("num") + 1 }`))', class: 'btn btn-outline-success' %>
+                <%= f.button fa_icon('plus'), type: :button, data: { partial: "#{ render 'interface_fields', form: f }" }, onclick: '$("#interface_insertion_node").append($(this).data("partial").replace(`data-num="0`, `data-num="${ $(".interface-fields").last().data("num") + 1 }`).replace(/interfaces\[0/g, `interfaces[${ $(".interface-fields").last().data("num") + 1 }`))', class: 'btn btn-outline-success' %>
               </div>
             </div>
             <ul id='interface_insertion_node' class='list-group list-group-flush' style='list-style: none;'>
-              <%= render 'interface_fields'%>
+              <%= render 'interface_fields', form: f %>
             </ul>
           </div>
           <div class='pull-right text-right mb-3'>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <%= button_tag 'Create Contact', class: 'btn bg-gold', data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> thinking..." } %>
+            <%= f.button 'Create Contact', class: 'btn bg-gold', data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> thinking..." } %>
           </div>
         <% end %>
       </div>
@@ -45,12 +45,13 @@
   </div>
 </div>
 
+
 <script>
   $("#contact_modal_form").submit(function(event){   
   event.preventDefault();
   var formData = new FormData($(this)[0]);
   $.ajax({
-    url: "<%= ENV['API_PATH'] %>/contacts",
+    url: "<%= ENV['API_PATH'] %>/contacts?include[]=interfaces",
     type: 'POST',
     data: formData,
     async: false,
