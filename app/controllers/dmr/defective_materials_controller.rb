@@ -1,13 +1,11 @@
 module Dmr
   class DefectiveMaterialsController < ApplicationController
     require 'net/http'
-    skip_after_action :verify_authorized
     
     def new
     end
 
     def get_so_info
-      @current_user = current_user
       uri = URI("#{ENV["API_PATH"]}/defective_materials/new?so_num=#{params[:so_num]}")
       puts uri
       response = Net::HTTP.get(uri)
