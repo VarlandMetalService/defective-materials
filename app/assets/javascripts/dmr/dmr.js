@@ -8,6 +8,8 @@ function get_so_info(url, so_num){
           xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
             },
           complete: function(xhr) {
+            $('.fa-refresh').removeClass('fa-spin');
+            FilePond.parse(document.body);
           },
         url: url,
         data: { so_num: so_num }
@@ -37,30 +39,3 @@ function render_validation_confirmations(form_id, exclude){
     $(input).addClass('is-valid')
   })
 }
-
-$( document ).on('tubolinks:load', function(){
-  
-  FilePond.registerPlugin(FilePondPluginFileEncode);
-  FilePond.registerPlugin(FilePondPluginImageExifOrientation);
-  FilePond.registerPlugin(FilePondPluginImagePreview);
-  FilePond.registerPlugin(FilePondPluginFileValidateType);
-  
-  FilePond.parse(document.body);
-
-  FilePond.setOptions({
-    acceptedFileTypes: ['image/*'],
-    fileValidateTypeLabelExpectedTypes: 'must be an image'
-  })
-
-  $("#dmr_form").on("ajax:success", function(data){ });
-  $("#dmr_form").on("ajax:error", function(event){
-  // remove all is-invalid and invalid-feedback
-    clear_validation_errors();
-  // add all current errors
-    render_validation_errors(event.detail[0], 'defective_material_');
-  // mark non-error fields valid
-    $.each($(`#dmr_form`).find(`.form-control:not(.is-invalid, .modal-body, .modal-body *)`), function(index, input){
-      $(input).addClass('is-valid')
-    })
-  });
-});

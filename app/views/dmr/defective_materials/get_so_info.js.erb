@@ -12,6 +12,7 @@
   $('#defective_material_shop_order_id').val('<%= @shop_order.id %>')
   $('#defective_material_created_at').val('<%= Date.today %>')
   $('#defective_material_purchase_order_numbers').val('<%= @shop_order.po_nums %>')
+  $('#defective_material_user_id').append(`<option value='${JSON.parse(sessionStorage.getItem('current_user'))['id']}' selected>${JSON.parse(sessionStorage.getItem('current_user'))['name']}</option>`);
 
 // render new contact & address modals
   $('#contact_contactable_id').empty().append('<option value="<%= @shop_order.customer.id %>"><%= @shop_order.customer.code %></option>')

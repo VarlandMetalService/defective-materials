@@ -64,6 +64,14 @@
     contentType: false,
     enctype: 'multipart/form-data',
     processData: false,
+    crossDomain: true,
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'Access-Control-Allow-Origin': 'http://localhost:3000'
+    }, 
+    xhrFields: {
+        withCredentials: true
+    },
     success: function(data){
       var partial = `<div class='col-12 container-fluid rounded-container mt-3 text-gold' style='background-color: #212529e6;'> ${ data["data"]["attributes"]["name"] } <br> ${ data["data"]["attributes"]["line_one"] }`
       if( data["data"]["attributes"]["line_two"] != "" ){

@@ -59,6 +59,14 @@
     contentType: false,
     enctype: 'multipart/form-data',
     processData: false,
+    crossDomain: true,
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'Access-Control-Allow-Origin': 'http://localhost:3000'
+    }, 
+    xhrFields: {
+        withCredentials: true
+    },
     success: function(data){
       var partial = `<div class='col-12 container-fluid rounded-container bg-wavy' style='color: black;'> ${ data["data"]["attributes"]["name"] } - <small> ${ data["data"]["attributes"]["description"] } </small> <br>`
 
