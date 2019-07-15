@@ -145,53 +145,42 @@
     </div>
   <div>
 <% end -%>
-<script>
-$( document ).on('turbolinks:load', function(){
-  FilePond.registerPlugin(FilePondPluginFileEncode);
-  FilePond.registerPlugin(FilePondPluginImageExifOrientation);
-  FilePond.registerPlugin(FilePondPluginImagePreview);
-  FilePond.registerPlugin(FilePondPluginFileValidateType);
-  FilePond.parse(document.body);
 
-  FilePond.setOptions({
-    acceptedFileTypes: ['image/*'],
-    fileValidateTypeLabelExpectedTypes: 'must be an image'
+<script>
+  $('#dmr_form').submit(function(event){
+    event.preventDefault();
+    var formData = new FormData($('#dmr_form')[0]);
+    $.ajax({
+      type: 'POST',
+      url: `<%= ENV['API_PATH'] %>/defective_materials?include[]=shop_order.part.customer&include[]=sent_to&include[]=sent_to_whom&include[]=sent_by`,
+      data: formData,
+      crossDomain: true,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Access-Control-Allow-Origin': 'http://localhost:3000'
+      }, 
+      xhrFields: {
+          withCredentials: true
+      }, 
+      async: false,
+      cache: false,
+      contentType: false,
+      enctype: 'multipart/form-data',
+      processData: false,
+      error: function(xhr, ajaxOptions, thrownError){
+        // remove all is-invalid and invalid-feedback
+        clear_validation_errors();
+        // add all current errors
+        render_validation_errors(jQuery.parseJSON(xhr.responseText), 'defective_material_');
+        // mark non-error fields valid
+        $.each($(`#dmr_form`).find(`.form-control:not(.is-invalid, .modal-body, .modal-body *)`), function(index, input){
+          $(input).addClass('is-valid')
+        })
+      },
+      success: function(res, status, xhr) { 
+        window.location.href = '/';
+        $('#flash-area').html(flash('Signed out successfully.', 'info'));
+      }
+    });
   });
-});
-$('#dmr_form').submit(function(event){
-  event.preventDefault();
-  var formData = new FormData($('#dmr_form')[0]);
-  $.ajax({
-    type: 'POST',
-    url: `<%= ENV['API_PATH'] %>/defective_materials?include[]=shop_order.part.customer&include[]=sent_to&include[]=sent_to_whom&include[]=sent_by`,
-    data: formData,
-    crossDomain: true,
-    headers: {
-      'X-Requested-With': 'XMLHttpRequest',
-      'Access-Control-Allow-Origin': 'http://localhost:3000'
-    }, 
-    xhrFields: {
-        withCredentials: true
-    }, 
-    async: false,
-    cache: false,
-    contentType: false,
-    enctype: 'multipart/form-data',
-    processData: false,
-    error: function(xhr, ajaxOptions, thrownError){
-      // remove all is-invalid and invalid-feedback
-      clear_validation_errors();
-      // add all current errors
-      render_validation_errors(jQuery.parseJSON(xhr.responseText), 'defective_material_');
-       // mark non-error fields valid
-      $.each($(`#dmr_form`).find(`.form-control:not(.is-invalid, .modal-body, .modal-body *)`), function(index, input){
-        $(input).addClass('is-valid')
-      })
-    },
-    success: function(res, status, xhr) { 
-      window.location.href = '/';
-      $('#flash-area').html(flash('Signed out successfully.', 'info'));
-    }
-  });
-});
 </script>

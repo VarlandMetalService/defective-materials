@@ -6,7 +6,7 @@ require "dmr/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
   spec.name        = "dmr"
-  spec.version     = 2.1
+  spec.version     = 3.0
   spec.authors     = ["Richard Legacy"]
   spec.email       = ["richard.legacy@varland.com"]
   spec.homepage    = ""

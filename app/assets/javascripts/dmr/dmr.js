@@ -1,4 +1,21 @@
 //= require_tree .
+$( document ).on('turbolinks:load', function(){
+  init_filepond();
+});
+
+function init_filepond(){
+  FilePond.registerPlugin(FilePondPluginFileEncode);
+  FilePond.registerPlugin(FilePondPluginImageExifOrientation);
+  FilePond.registerPlugin(FilePondPluginImagePreview);
+  FilePond.registerPlugin(FilePondPluginFileValidateType);
+  FilePond.parse(document.body);
+  FilePond.setOptions({
+    acceptedFileTypes: ['image/*'],
+    fileValidateTypeLabelExpectedTypes: 'must be an image'
+  });
+  FilePond.parse(document.body);
+}
+
 function get_so_info(url, so_num){
     $('.dmr_hidden_fields').fadeOut('fast');
     $('.fa-refresh').addClass('fa-spin');
